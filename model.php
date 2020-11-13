@@ -42,10 +42,10 @@
             //proveravamo da li je korisnik kliknuo na dugme submit u okviru forme
             if(isset($_POST['submit'])){
                 
-                 //proveravamo da li je korisnik kuneo podatke u title i description u okviru forme
+                 //proveravamo da li je korisnik kuneo podatke u naziv i opis u okviru forme
                 if(isset($_POST['nazivRadnje']) && isset($_POST['opis'])){
 
-                    //ukoliko polja nisu prazna pamtimo u okviru varijabli title i description, preko superglobalne promenljive POST ono sta je korisnik uneo
+                    //ukoliko polja nisu prazna pamtimo u okviru varijabli nazivRadnje i opis, preko superglobalne promenljive POST ono sta je korisnik uneo
                     if(!empty($_POST['nazivRadnje']) && !empty($_POST['opis'])){
                         $nazivRadnje = $_POST['nazivRadnje'];
                         $opis = $_POST['opis'];
@@ -57,7 +57,7 @@
                         if($sql = $this->conn->exec($query)){
                             echo "
                             <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                            Record added successfully
+                            Radnja uspesno dodata!
                             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                               <span aria-hidden='true'>&times;</span>
                             </button>
@@ -66,7 +66,7 @@
                         }else {
                             echo "
                             <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                            failed to add record
+                            Neuspesno dodavanje!
                             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                               <span aria-hidden='true'>&times;</span>
                             </button>
@@ -76,7 +76,7 @@
                     } else {
                         echo "
                         <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                        empty fields
+                        Popunite sva polja!
                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                           <span aria-hidden='true'>&times;</span>
                         </button>
@@ -106,7 +106,7 @@
             if($sql = $this->conn->exec($query)){
                 echo "
                 <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                Record deleted
+                Radnja obrisana!
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                   <span aria-hidden='true'>&times;</span>
                 </button>
@@ -115,7 +115,7 @@
             } else {
                 echo "
                 <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                eDelete failed
+                Brisanje neuspesno!
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                   <span aria-hidden='true'>&times;</span>
                 </button>
@@ -125,18 +125,6 @@
         }
 
 
-        //read
-        public function read($read_id){
-            $data = null;
-
-            $stmt = $this->conn->prepare("SELECT * FROM records WHERE id='$read_id'");
-
-            $stmt->execute();
-
-            $data = $stmt->fetch();
-            
-            return $data;
-        }
 
 
         //edit
@@ -169,7 +157,7 @@
             if($sql = $this->conn->exec($query)){
                 echo "
                 <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                Record updated successfully
+                Radnja uspesno izmenjena!
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                   <span aria-hidden='true'>&times;</span>
                 </button>
@@ -178,7 +166,7 @@
             } else {
                 echo "
                 <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                Update failed 
+                Izmena neuspesna!
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                   <span aria-hidden='true'>&times;</span>
                 </button>
@@ -195,7 +183,7 @@
           if($sql = $this->conn->exec($query)){
               echo "
               <div class='alert alert-success alert-dismissible fade show' role='alert'>
-              Record updated successfully
+              Proizvod uspesno izmenjen!
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -204,7 +192,7 @@
           } else {
               echo "
               <div class='alert alert-success alert-dismissible fade show' role='alert'>
-              Update failed 
+              Izmena neuspesna!
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
@@ -216,18 +204,22 @@
 
     //INSERT PROIZVODA
     public function insertPr(){
-      //proveravamo da li je korisnik kliknuo na dugme submit u okviru forme
+
       if(isset($_POST['dodaj'])){
           
-           //proveravamo da li je korisnik kuneo podatke u title i description u okviru forme
+
           if(isset($_POST['naziv_proizvoda']) && isset($_POST['velicina']) && isset($_POST['cena']) && isset($_POST['idRad'])){
 
-              //ukoliko polja nisu prazna pamtimo u okviru varijabli title i description, preko superglobalne promenljive POST ono sta je korisnik uneo
-              if(!empty($_POST['naziv_proizvoda']) && !empty($_POST['velicina']) && !empty($_POST['cena']) && !empty($_POST['idRad'])){
+              if(!empty($_POST['naziv_proizvoda']) && !empty($_POST['velicina']) && !empty($_POST['cena']) && !empty($_POST['idRad']) ){
                   $naziv_proizvoda = $_POST['naziv_proizvoda'];
                   $velicina = $_POST['velicina'];
                   $cena = $_POST['cena'];
                   $idRad = $_POST['idRad'];
+
+                  
+                  
+
+                  
 
                   
                   
@@ -236,7 +228,7 @@
                   if($sql = $this->conn->exec($query)){
                       echo "
                       <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                      Record added successfully
+                      Proizvod uspesno dodat!
                       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                       </button>
@@ -245,7 +237,7 @@
                   }else {
                       echo "
                       <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                      failed to add record
+                      Neuspesno dodavanje proizvoda!
                       <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true'>&times;</span>
                       </button>
@@ -253,14 +245,16 @@
                       ";
                   }
               } else {
+                  
                   echo "
                   <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                  empty fields
+                  Prazna polja!
                   <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                     <span aria-hidden='true'>&times;</span>
                   </button>
                 </div>
                   ";
+                  
               }
           }
       }

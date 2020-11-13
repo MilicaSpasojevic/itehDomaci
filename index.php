@@ -6,12 +6,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/x-icon" href="logo.png" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-    <title>ITEH DOMACI</title>
+    <title>ZARA</title>
 </head>
 
 <body style="">
@@ -78,6 +79,8 @@
         </div>
             <form class="form-inline">
 
+            
+
             <div id="opcije"></div>
                <!-- <select class="custom-select my-1 mr-sm-2" id="select">
                     <option selected>Izaberi zaru</option>
@@ -104,6 +107,7 @@
 
                 <button type="dodaj" id="dodaj" class="btn btn-primary my-1">Dodaj proizvod</button>
             </form>
+            <div id="resultPro"></div>
 
         </div class="row">
     </div class="col-md-8 mx-auto">
@@ -133,7 +137,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Edit Record</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">Izmeni radnju</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -154,7 +158,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel1">Edit Record</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">Izmeni proizvod</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -194,8 +198,8 @@
 
     <!-- -->
     <!--Pomocu jqueryja uzimamo podatke od korisnika nakon sto je uneo u formu
-    zatim, te podatke prosledjujemo serveru, u nasem slucaju prosledujemo url na insert.php i njemu prosledjujemo title, description i submit, kao podatke, 
-    dalje, server tim podacima pristupa preko 'title', 'description' i 'submit' preko superglobalne promenljive post (jer smo u ajaxu stavili da je type post-->
+    zatim, te podatke prosledjujemo serveru, u nasem slucaju prosledujemo url na insert.php i njemu prosledjujemo naziv,opis i submit, kao podatke, 
+    dalje, server tim podacima pristupa preko 'nazivRadnje', 'opis' i 'submit' preko superglobalne promenljive post (jer smo u ajaxu stavili da je type post-->
     <script>
     $(document).on("click", "#submit", function(e) {
         e.preventDefault();
@@ -235,7 +239,7 @@ Send data to a server - in the background*/
     });
 
 
-    //Fetch Records
+    //Fetch radnje
     function fetch() {
         $.ajax({
             url: "fetch.php",
@@ -262,13 +266,13 @@ Send data to a server - in the background*/
 
     opcije();
 
-    //Delete record
+    //Delete radnja
 
     $(document).on("click", "#del", function(e) {
         e.preventDefault();
         //attr- returns attributes and values of the selected elements, u nasem slucaju this se odnosi na del dugme iz fetch-a
 
-        if (window.confirm("Do you want to delete record?")) {
+        if (window.confirm("Da li zaista zelite da izbrisete radnju?")) {
 
             var del_id = $(this).attr("value");
             console.log(del_id)
@@ -290,27 +294,10 @@ Send data to a server - in the background*/
 
     });
 
-/*
-    //Read record
-    $(document).on("click", "#read", function(e) {
-        e.preventDefault();
-
-        var read_id = $(this).attr("value");
-
-        $.ajax({
-            url: "read.php",
-            type: "post",
-            data: {
-                read_id: read_id
-            },
-            success: function(data) {
-                $("#read_data").html(data);
-            }
-        })
-    });*/
 
 
-    //Edit record
+
+    //Edit radnja
     $(document).on("click", "#edit", function(e) {
         e.preventDefault();
 
@@ -378,13 +365,13 @@ Send data to a server - in the background*/
             },
             success: function(data) {
                 fetchPro();
-                $("#show").html(data);
+                $("#showPro").html(data);
             }
 
         })
     })
 
-        //Update
+        //Update radnja
 
         $(document).on("click", "#update", function(e) {
         e.preventDefault();
@@ -424,11 +411,6 @@ Send data to a server - in the background*/
         var idRad = $("#select").val();
         var dodaj = $("#dodaj").val();
 
-        console.log(naziv_proizvoda);
-        console.log(velicina);
-        console.log(cena);
-        console.log(idRad);
-        console.log(dodaj);
 
         $.ajax({
             url: "insertPr.php",
@@ -442,7 +424,7 @@ Send data to a server - in the background*/
             },
             success: function(data){
                 fetchPro();
-                $("showPro").html(data);
+                $("#resultPro").html(data);
 
             }
         })
@@ -463,13 +445,13 @@ Send data to a server - in the background*/
 
 
 
-        //Delete record
+        //Delete proizvod
 
         $(document).on("click", "#delPro", function(e) {
         e.preventDefault();
         //attr- returns attributes and values of the selected elements, u nasem slucaju this se odnosi na del dugme iz fetch-a
 
-        if (window.confirm("Do you want to delete record?")) {
+        if (window.confirm("Da li zaista zelite da obrisete proizvod?")) {
 
             var del_id = $(this).attr("value");
 
